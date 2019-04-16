@@ -1,6 +1,11 @@
 spring:
   application:
     name: beer-query
+#  data:
+#    cassandra:
+#      contactpoints: 127.0.0.1
+#      keyspace-name: beer
+#      port: 9042
 
 server:
   port: 8091

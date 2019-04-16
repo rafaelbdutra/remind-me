@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -18,26 +17,23 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @EnableWebFlux
 public class BeerGatewayConfig {
 
-//    private WebClient webClient;
-    @Autowired
-    private RestTemplate restTemplate;
+	public static final String BEER_QUERY_URL = "http://BEER-QUERY/query/beer";
 
-    @Bean
-    public RouterFunction<?> queryRouter() {
-        return route(GET("/beer"), r -> ServerResponse.ok().body(Mono.just(lalala()), String.class));
-    }
+	@Autowired
+	private WebClient.Builder webClientBuilder;
 
-    private String lalala() {
-        return restTemplate.exchange("http://BEER-QUERY/query/beer",
-                HttpMethod.GET,
-                null,
-                String.class).getBody();
-//        return WebClient.create("http://localhost:8761/beer-query/query/beer").get().retrieve().bodyToMono(String.class);
-    }
+	@Bean
+	public RouterFunction<?> queryRouter() {
+		return route(GET("/beer"), r -> ServerResponse.ok().body(getAllBeers(), String.class));
+	}
 
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	private Mono<String> getAllBeers() {
+		return webClientBuilder.build().get().uri(BEER_QUERY_URL).retrieve().bodyToMono(String.class);
+	}
+
+	@Bean
+	@LoadBalanced
+	WebClient.Builder webClient() {
+		return WebClient.builder();
+	}
 }
