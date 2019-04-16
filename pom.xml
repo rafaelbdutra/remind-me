@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rafael.dutra</groupId>
-    <artifactId>can-i-have-a-beer</artifactId>
+    <artifactId>remind-me</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>beer-gateway</module>
-        <module>beer-query</module>
+        <module>remind-me-gateway</module>
+        <module>remind-me-query</module>
         <module>eureka-server</module>
     </modules>
     <packaging>pom</packaging>
 
-    <name>can-i-have-a-beer</name>
-    <description>Can I have a beer?</description>
+    <name>remind-me</name>
+    <description>Remind me Stuff!</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

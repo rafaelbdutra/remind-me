@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: remind-me-query
+
+server:
+  port: 8091
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
