@@ -11,6 +11,7 @@
         <module>remind-me-gateway-kotlin</module>
         <module>remind-me-query</module>
         <module>eureka-server</module>
+        <module>remind-me-command</module>
     </modules>
     <packaging>pom</packaging>
 

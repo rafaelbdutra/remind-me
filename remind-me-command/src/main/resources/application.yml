@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: remind-me-command
+
+server:
+  port: 8092
+  context-path: /command
+
+logging:
+  level:
+    root: INFO
+#    org:
+#      springframework:
+#        web: DEBUG
+#        security: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
