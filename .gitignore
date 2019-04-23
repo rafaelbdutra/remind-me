@@ -1,6 +1,13 @@
+### maven ###
 /target/
 */target/
 !.mvn/wrapper/maven-wrapper.jar
+
+### gradle ###
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+out/
 
 ### STS ###
 .apt_generated
@@ -24,6 +31,9 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### VS Code ###
+.vscode/
 
 ### Others ###
 mvnw*
