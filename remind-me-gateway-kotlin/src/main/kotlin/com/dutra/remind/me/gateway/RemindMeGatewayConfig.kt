@@ -15,7 +15,8 @@ import reactor.core.publisher.Mono
 class RemindMeGatewayConfig {
 
     companion object {
-        @JvmField var REMIND_ME_QUERY_URL = "http://REMIND-ME-QUERY/query/reminder"
+        @JvmField
+        var REMIND_ME_QUERY_URL = "http://REMIND-ME-QUERY/query/reminder"
     }
 
     @Autowired
@@ -26,8 +27,7 @@ class RemindMeGatewayConfig {
         GET("/reminder") { _ -> ServerResponse.ok().body(getAllReminders(), String::class.java) }
     }
 
-    private fun getAllReminders(): Mono<String>
-            = webClientBuilder.build().get().uri(REMIND_ME_QUERY_URL).retrieve().bodyToMono(String::class.java)
+    private fun getAllReminders(): Mono<String> = webClientBuilder.build().get().uri(REMIND_ME_QUERY_URL).retrieve().bodyToMono(String::class.java)
 
     @Bean
     @LoadBalanced

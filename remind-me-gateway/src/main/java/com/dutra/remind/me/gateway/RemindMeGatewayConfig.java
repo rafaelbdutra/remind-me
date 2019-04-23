@@ -17,23 +17,23 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @EnableWebFlux
 public class RemindMeGatewayConfig {
 
-	public static final String REMIND_ME_QUERY_URL = "http://REMIND-ME-QUERY/query/reminder";
+    public static final String REMIND_ME_QUERY_URL = "http://REMIND-ME-QUERY/query/reminder";
 
-	@Autowired
-	private WebClient.Builder webClientBuilder;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-	@Bean
-	public RouterFunction<?> queryRouter() {
-		return route(GET("/reminder"), r -> ServerResponse.ok().body(getAllReminders(), String.class));
-	}
+    @Bean
+    public RouterFunction<?> queryRouter() {
+        return route(GET("/reminder"), r -> ServerResponse.ok().body(getAllReminders(), String.class));
+    }
 
-	private Mono<String> getAllReminders() {
-		return webClientBuilder.build().get().uri(REMIND_ME_QUERY_URL).retrieve().bodyToMono(String.class);
-	}
+    private Mono<String> getAllReminders() {
+        return webClientBuilder.build().get().uri(REMIND_ME_QUERY_URL).retrieve().bodyToMono(String.class);
+    }
 
-	@Bean
-	@LoadBalanced
-	WebClient.Builder webClient() {
-		return WebClient.builder();
-	}
+    @Bean
+    @LoadBalanced
+    WebClient.Builder webClient() {
+        return WebClient.builder();
+    }
 }

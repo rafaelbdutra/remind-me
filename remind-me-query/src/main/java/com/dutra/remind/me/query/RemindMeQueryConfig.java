@@ -23,32 +23,32 @@ import static org.springframework.web.reactive.function.server.ServerResponse.*;
 @EnableWebFlux
 public class RemindMeQueryConfig {
 
-	@Autowired
-	private ReminderRepository reminderRepository;
+    @Autowired
+    private ReminderRepository reminderRepository;
 
-	@Bean
-	public RouterFunction<ServerResponse> queryRouter() {
-		return nest(path("/query/reminder"),
-				route(GET("/"), this::allReminders)
-				.andRoute(GET("/{id}"), this::singleReminder));
-	}
+    @Bean
+    public RouterFunction<ServerResponse> queryRouter() {
+        return nest(path("/query/reminder"),
+                route(GET("/"), this::allReminders)
+                        .andRoute(GET("/{id}"), this::singleReminder));
+    }
 
-	private Mono<ServerResponse> allReminders(ServerRequest serverRequest) {
-		return reminderRepository.findAll()
-				.collectList()
-				.flatMap(reminders -> ok().contentType(APPLICATION_JSON).body(fromObject(reminders)));
-	}
+    private Mono<ServerResponse> allReminders(ServerRequest serverRequest) {
+        return reminderRepository.findAll()
+                .collectList()
+                .flatMap(reminders -> ok().contentType(APPLICATION_JSON).body(fromObject(reminders)));
+    }
 
-	private Mono<ServerResponse> singleReminder(ServerRequest request) {
-		return Mono.just(request.pathVariable("id"))
-				.map(reminderRepository::findById)
-				.flatMap(reminder -> ok().contentType(APPLICATION_JSON).body(reminder, Reminder.class))
-				.switchIfEmpty(notFound().build())
-				.onErrorResume(
-						NumberFormatException.class,
-						e -> status(INTERNAL_SERVER_ERROR).body(fromObject(e.getMessage()))
-				)
-				.log("here")
-				.subscribeOn(Schedulers.elastic());
-	}
+    private Mono<ServerResponse> singleReminder(ServerRequest request) {
+        return Mono.just(request.pathVariable("id"))
+                .map(reminderRepository::findById)
+                .flatMap(reminder -> ok().contentType(APPLICATION_JSON).body(reminder, Reminder.class))
+                .switchIfEmpty(notFound().build())
+                .onErrorResume(
+                        NumberFormatException.class,
+                        e -> status(INTERNAL_SERVER_ERROR).body(fromObject(e.getMessage()))
+                )
+                .log("here")
+                .subscribeOn(Schedulers.elastic());
+    }
 }

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RemindMeGatewayApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RemindMeGatewayApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RemindMeGatewayApplication.class, args);
+    }
 }
