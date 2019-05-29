@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig",
+  "include": ["src/"],
+  "exclude": ["node_modules/", "node_modules_nanos/", "dist/", "**/__test__/"],
+  "compilerOptions": {
+    "rootDir": "./src"
+  }
+}
