@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.UUID;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
@@ -41,6 +43,7 @@ public class RemindMeQueryConfig {
 
     private Mono<ServerResponse> singleReminder(ServerRequest request) {
         return Mono.just(request.pathVariable("id"))
+                .map(UUID::fromString)
                 .map(reminderRepository::findById)
                 .flatMap(reminder -> ok().contentType(APPLICATION_JSON).body(reminder, Reminder.class))
                 .switchIfEmpty(notFound().build())

@@ -1,6 +1,8 @@
 package com.dutra.remind.me.query;
 
+import com.datastax.driver.core.DataType;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
@@ -10,6 +12,7 @@ import java.util.UUID;
 public class Reminder {
 
     @PrimaryKey
+    @CassandraType(type = DataType.Name.UUID)
     private UUID id;
     private String remindTo;
     private String type;
