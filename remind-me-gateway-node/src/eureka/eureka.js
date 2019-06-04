@@ -1,3 +1,4 @@
+const ip = require('ip');
 const Eureka = require('eureka-js-client').Eureka;
 
 // example configuration
@@ -6,7 +7,7 @@ const client = new Eureka({
     instance: {
         app: 'remind-me-gateway',
         hostName: 'localhost',
-        ipAddr: '172.168.1.104',
+        ipAddr: ip.address(),
         port: {
             '$': 3000,
             '@enabled': true
@@ -22,7 +23,7 @@ const client = new Eureka({
     },
     eureka: {
         // eureka server host / port
-        host: '192.168.1.104',
+        host: ip.address(),
         port: 8761,
         servicePath: '/eureka/apps'
     },
@@ -30,7 +31,7 @@ const client = new Eureka({
 
 connect = () => {
     client.logger.level('debug');
-    console.log('Connecting to Eureka server on http://localhost/8761/eureka/apps');
+    console.log('Connecting to Eureka server on http://localhost:8761/eureka/apps');
     client.start();
 };
 

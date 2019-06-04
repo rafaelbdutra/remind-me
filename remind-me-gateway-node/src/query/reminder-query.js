@@ -3,7 +3,7 @@ const eureka = require('../eureka/eureka');
 
 getAllReminders = () => {
     const baseUrl = `http://${getQueryUrl()}`;
-    const uri = '/query/reminder';
+    const uri = '/query/reminders';
     const options = {
         json: true,
         baseUrl: baseUrl,
@@ -13,9 +13,8 @@ getAllReminders = () => {
 };
 
 getReminder = (id) => {
-    console.log('>>> ' + id);
     const baseUrl = `http://${getQueryUrl()}`;
-    const uri = `/query/reminder/${id}`;
+    const uri = `/query/reminders/${id}`;
     const options = {
         json: true,
         baseUrl: baseUrl,
