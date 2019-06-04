@@ -7,7 +7,7 @@
     <artifactId>remind-me</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>remind-me-query</module>
+        <module>remind-me-query-kotlin</module>
         <module>eureka-server</module>
         <module>remind-me-command</module>
     </modules>
