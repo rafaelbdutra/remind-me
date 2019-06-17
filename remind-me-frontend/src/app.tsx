@@ -1,32 +1,27 @@
 import * as React from "react";
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 
-class Counter extends React.Component {
 
-    state = {
-        count: 0,
-    };
+// components
+import MyCounter from './components/Counter/couter';
 
-    increment = () => {
-        this.setState({
-            count: this.state.count + 1
-        });
-    };
+const client = new ApolloClient({
+    uri: "http://localhost:3000/graphql"
+});
 
-    decrement = () => {
-        this.setState({
-            count: this.state.count - 1
-        });
-    };
+const App = () => {
+    return (
+        <ApolloProvider client={client}>
+            <ApolloHooksProvider client={client}>
+                <div>
+                    <h1>Reminders</h1>
+                    <MyCounter />
+                </div>
+            </ApolloHooksProvider>
+        </ApolloProvider>
+    );
+};
 
-    render() {
-        return (
-            <div>
-                <h1>{this.state.count}</h1>
-                <button onClick={this.increment}>+</button>
-                <button onClick={this.decrement}>-</button>
-            </div>
-        )
-    }
-}
-
-export default Counter;
+export default App;
