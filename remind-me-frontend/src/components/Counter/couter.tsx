@@ -1,9 +1,12 @@
 import * as React from "react";
 import { graphql } from 'react-apollo';
-import { QUERY_ALL_REMINDERS } from "./query";
-import { Reminder } from "../../generated/graphql";
+import { ChildProps } from 'react-apollo/types';
+import { QUERY_ALL_REMINDERS } from "../../queries/queries";
+import { GetAllReminders } from "../../queries/types/GetAllReminders";
 
-class MyCounter extends React.Component {
+type CounterProps = ChildProps<{}, GetAllReminders>
+
+class MyCounter extends React.Component<CounterProps> {
 
     state = {
         count: 0,
@@ -24,11 +27,12 @@ class MyCounter extends React.Component {
     displayReminders = () => {
         const data = this.props.data;
 
-        if (data.loading) {
+        if (!data || data.loading || !data.reminders) {
             return( <div>Loading reminders...</div> );
         }
 
-        return data.reminders.map(reminder => <li> { reminder.remindTo } </li>);
+        return data.reminders
+            .map(reminder => <li> {reminder!.remindTo} </li>);
     };
 
     render() {
@@ -39,6 +43,7 @@ class MyCounter extends React.Component {
                 <button onClick={this.increment}>+</button>
                 <button onClick={this.decrement}>-</button>
                 <ul id="reminder-list">
+                    { console.log(this.displayReminders()) }
                     { this.displayReminders() }
                 </ul>
             </div>
@@ -46,4 +51,4 @@ class MyCounter extends React.Component {
     }
 }
 
-export default graphql(QUERY_ALL_REMINDERS)(MyCounter);
+export default graphql<{}, GetAllReminders>(QUERY_ALL_REMINDERS)(MyCounter);
